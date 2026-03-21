@@ -5,21 +5,26 @@ from typing import Optional, Tuple
 class SOM:
     def __init__(
         self,
-        width: int,
-        height: int,
+        grid_width: int,
+        grid_height: int,
         num_features: int,
         num_iterations: int = 1000,
         init_learning_rate: Optional[float] = 0.1,
         init_radius: Optional[float] = None,
+        random_seed: Optional[int] = 42,
     ):
-        self.width = width
-        self.height = height
+        self.width = grid_width
+        self.height = grid_height
         self.num_features = num_features
         self.init_learning_rate = init_learning_rate
         self.num_iterations = num_iterations
 
-        self.init_radius = init_radius if init_radius else max(width, height) / 2
-        self.weights: np.ndarray = np.random.random((width, height, num_features))
+        self.init_radius = (
+            init_radius if init_radius else max(grid_width, grid_height) / 2
+        )
+
+        rng = np.random.default_rng(random_seed)
+        self.weights: np.ndarray = rng.random((grid_width, grid_height, num_features))
         self.time_constant: float = num_iterations / np.log(self.init_radius)
         self.x_cords, self.y_cords = np.meshgrid(
             np.arange(self.width), np.arange(self.height)
@@ -52,7 +57,6 @@ class SOM:
         )
 
     def fit(self, input_data: np.ndarray):
-
         for t in range(self.num_iterations):
             radius_t, lr_t = self._get_decayed_params(iter_num=t)
 

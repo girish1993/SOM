@@ -1,0 +1,15 @@
+
+run_config:
+  - grid_width: 10
+    grid_height: 10
+    num_features: 3
+    num_iterations: 100
+    init_learning_rate : 0.1 
+    random_seed: 42
+  - grid_width: 100
+    grid_height: 100
+    num_features: 3
+    num_iterations: 1000
+    init_learning_rate : 0.1 
+    random_seed: 42
+
