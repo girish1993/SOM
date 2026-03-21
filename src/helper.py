@@ -3,6 +3,7 @@ import time
 from functools import wraps
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 def timer(func):
@@ -11,10 +12,11 @@ def timer(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()
+        logger.info("Initiating function {func.__name__!r}")
         result = func(*args, **kwargs)
         end_time = time.perf_counter()
         execution_time = end_time - start_time
-        print(f"Function {func.__name__!r} took: {execution_time:.4f} seconds")
+        logger.info(f"Function {func.__name__!r} took: {execution_time:.4f} seconds")
         return result
 
     return wrapper
