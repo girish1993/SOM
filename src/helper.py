@@ -12,7 +12,7 @@ def timer(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()
-        logger.info("Initiating function {func.__name__!r}")
+        logger.info(f"Initiating function {func.__name__!r}")
         result = func(*args, **kwargs)
         end_time = time.perf_counter()
         execution_time = end_time - start_time
