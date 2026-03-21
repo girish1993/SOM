@@ -1,10 +1,11 @@
-from src.io import parse_config, save_weights
-from src.som import SOM
-import numpy as np
 import os
 
-if __name__ == "__main__":
+import numpy as np
 
+from src.io import parse_config, save_weights
+from src.som import SOM
+
+if __name__ == "__main__":
     config_file_name = "config.yaml"
     mapped_img_dir_name = "mapped_imgs"
 

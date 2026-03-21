@@ -1,5 +1,12 @@
-import numpy as np
+import logging
 from typing import Optional, Tuple
+
+import numpy as np
+
+from src.helper import timer
+
+# Create a module-level logger. The name is automatically set to the module name.
+logger = logging.getLogger(__name__)
 
 
 class SOM:
@@ -56,10 +63,10 @@ class SOM:
             learning_rate * neighbourhood[:, :, np.newaxis] * (sample - self.weights)
         )
 
+    @timer
     def fit(self, input_data: np.ndarray):
         for t in range(self.num_iterations):
             radius_t, lr_t = self._get_decayed_params(iter_num=t)
-
             for sample in input_data:
                 bmu_x, bmu_y = self._find_bmu(sample=sample)
                 neighbourhood = self._find_neighbourhood(
