@@ -136,6 +136,9 @@ class SOM:
             - Learning rate and neighbourhood radius decay over time.
             - Logs training progress at regular intervals.
         """
+        if input_data.ndim != 2:
+            raise ValueError(f"input data must be 2-D, got {input_data.shape}")
+
         for t in range(self.num_iterations):
             radius_t, lr_t = self._get_decayed_params(iter_num=t)
 
